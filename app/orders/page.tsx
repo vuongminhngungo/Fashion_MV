@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import MotionSection from "@/components/shared/MotionSection";
+import SectionHeading from "@/components/shared/SectionHeading";
 
 const mockOrders = [
   {
@@ -35,16 +38,29 @@ export default function OrdersPage() {
   );
 
   return (
-    <div className="container-px mx-auto max-w-6xl py-8">
-      <h1 className="mb-6 text-3xl font-semibold">Orders</h1>
-      <div className="space-y-4">
-        {mockOrders.map((order) => (
-          <div key={order.id} className="rounded-xl border border-zinc-200 p-5">
+    <div className="container-px shopee-shell py-6 md:py-8">
+      <MotionSection className="rounded-sm bg-white p-4 shadow-sm md:p-5">
+        <SectionHeading
+          title="My Orders"
+          subtitle="Order tracking and delivery states displayed in a Shopee-like account experience"
+          action={<span className="shopee-pill">3 orders</span>}
+        />
+      </MotionSection>
+
+      <MotionSection delay={0.05} className="mt-5 space-y-4">
+        {mockOrders.map((order, index) => (
+          <motion.div
+            key={order.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: index * 0.04 }}
+            className="rounded-sm bg-white p-5 shadow-sm"
+          >
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <div className="flex items-center gap-3">
-                  <h2 className="font-semibold">{order.id}</h2>
-                  <Badge className="bg-zinc-100 text-zinc-700">
+                  <h2 className="font-semibold text-zinc-900">{order.id}</h2>
+                  <Badge className="rounded-sm bg-orange-50 text-[#ee4d2d]">
                     {order.status}
                   </Badge>
                 </div>
@@ -54,9 +70,11 @@ export default function OrdersPage() {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <p className="font-semibold">{order.total}</p>
+                <p className="text-lg font-semibold text-[#ee4d2d]">
+                  {order.total}
+                </p>
                 <button
-                  className="text-sm text-[#8B1A1A]"
+                  className="text-sm font-medium text-[#ee4d2d]"
                   onClick={() =>
                     setExpandedOrder(
                       expandedOrder === order.id ? null : order.id,
@@ -69,15 +87,19 @@ export default function OrdersPage() {
             </div>
 
             {expandedOrder === order.id ? (
-              <div className="mt-5 grid gap-3 rounded-lg bg-zinc-50 p-4 sm:grid-cols-4">
-                {timeline.map((step, index) => {
-                  const active = timeline.indexOf(order.status) >= index;
+              <div className="mt-5 grid gap-3 rounded-sm bg-zinc-50 p-4 sm:grid-cols-4">
+                {timeline.map((step, stepIndex) => {
+                  const active = timeline.indexOf(order.status) >= stepIndex;
                   return (
                     <div key={step} className="flex items-center gap-2 text-sm">
                       <span
-                        className={`h-3 w-3 rounded-full ${active ? "bg-black" : "bg-zinc-300"}`}
+                        className={`h-3 w-3 rounded-full ${active ? "bg-[#ee4d2d]" : "bg-zinc-300"}`}
                       />
-                      <span className={active ? "text-black" : "text-zinc-500"}>
+                      <span
+                        className={
+                          active ? "font-medium text-zinc-900" : "text-zinc-500"
+                        }
+                      >
                         {step}
                       </span>
                     </div>
@@ -85,9 +107,9 @@ export default function OrdersPage() {
                 })}
               </div>
             ) : null}
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </MotionSection>
     </div>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import CartItem from "@/components/cart/CartItem";
 import EmptyState from "@/components/shared/EmptyState";
+import MotionSection from "@/components/shared/MotionSection";
+import SectionHeading from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/utils";
@@ -24,7 +27,7 @@ export default function CartPage() {
 
   if (!items.length) {
     return (
-      <div className="container-px mx-auto max-w-5xl py-10">
+      <div className="container-px shopee-shell py-10">
         <EmptyState
           title="Your cart is empty"
           description="Browse the latest fashion pieces and add your favorites to cart."
@@ -36,44 +39,62 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container-px mx-auto max-w-6xl py-8">
-      <h1 className="mb-6 text-3xl font-semibold">Shopping Cart</h1>
-      <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
-        <section className="space-y-4">
-          {items.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
-              onDecrease={() =>
-                updateQuantity(item.id, Math.max(1, item.quantity - 1))
-              }
-              onRemove={() => {
-                removeItem(item.id);
-                toast.success("Removed from cart");
-              }}
-            />
-          ))}
+    <div className="container-px shopee-shell py-6 md:py-8">
+      <MotionSection className="mb-5 rounded-sm bg-white p-4 shadow-sm md:p-5">
+        <SectionHeading
+          title="Shopping Cart"
+          subtitle="A Shopee-style checkout staging area with vouchers, urgency, and summary details"
+          action={<span className="shopee-pill">{items.length} item(s)</span>}
+        />
+      </MotionSection>
 
-          <div className="rounded-xl bg-zinc-100 p-4 text-sm">
+      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+        <MotionSection className="space-y-4">
+          <div className="rounded-sm border border-orange-200 bg-[#fff6f3] px-4 py-3 text-sm text-zinc-700 shadow-sm">
             {remainingForFreeShipping > 0
               ? `Add ${formatPrice(remainingForFreeShipping)} more for free shipping`
               : "You have unlocked free shipping"}
           </div>
-        </section>
 
-        <aside className="space-y-4 rounded-xl border border-zinc-200 p-5">
-          <h2 className="text-xl font-semibold">Order Summary</h2>
+          {items.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: index * 0.04 }}
+            >
+              <CartItem
+                item={item}
+                onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
+                onDecrease={() =>
+                  updateQuantity(item.id, Math.max(1, item.quantity - 1))
+                }
+                onRemove={() => {
+                  removeItem(item.id);
+                  toast.success("Removed from cart");
+                }}
+              />
+            </motion.div>
+          ))}
+        </MotionSection>
 
-          <div className="flex gap-2">
+        <MotionSection className="rounded-sm bg-white p-5 shadow-sm">
+          <SectionHeading
+            title="Order Summary"
+            subtitle="Voucher-first summary block inspired by marketplace checkout sidebars"
+          />
+
+          <div className="mt-4 flex gap-2">
             <Input
-              placeholder="Coupon code"
+              placeholder="Enter coupon code"
               defaultValue={coupon ?? ""}
               id="coupon-code"
+              className="h-11 rounded-sm"
             />
             <Button
               type="button"
               variant="outline"
+              className="h-11 rounded-sm border-[#ee4d2d] text-[#ee4d2d] hover:bg-orange-50"
               onClick={() => {
                 const input = document.getElementById(
                   "coupon-code",
@@ -92,29 +113,43 @@ export default function CartPage() {
             </Button>
           </div>
 
-          <div className="space-y-2 text-sm">
+          <div className="mt-5 space-y-3 text-sm text-zinc-600">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>{formatPrice(subtotal)}</span>
+              <span className="font-medium text-zinc-900">
+                {formatPrice(subtotal)}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Discount</span>
-              <span>-{formatPrice(discount)}</span>
+              <span className="font-medium text-[#ee4d2d]">
+                -{formatPrice(discount)}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
+              <span className="font-medium text-zinc-900">
+                {shipping === 0 ? "Free" : formatPrice(shipping)}
+              </span>
             </div>
-            <div className="flex justify-between border-t pt-3 text-base font-semibold">
+            <div className="rounded-sm bg-zinc-50 px-4 py-3 text-xs text-zinc-500">
+              Orders above $120 receive free shipping. Marketplace promotions
+              apply at checkout.
+            </div>
+            <div className="flex justify-between border-t border-zinc-100 pt-4 text-base font-semibold text-zinc-900">
               <span>Total</span>
-              <span>{formatPrice(total)}</span>
+              <span className="text-2xl text-[#ee4d2d]">
+                {formatPrice(total)}
+              </span>
             </div>
           </div>
 
-          <Link href="/checkout" className="block">
-            <Button className="w-full">Proceed to Checkout</Button>
+          <Link href="/checkout" className="mt-5 block">
+            <Button className="h-12 w-full rounded-sm bg-[#ee4d2d] text-white hover:bg-[#d94324]">
+              Proceed to Checkout
+            </Button>
           </Link>
-        </aside>
+        </MotionSection>
       </div>
     </div>
   );

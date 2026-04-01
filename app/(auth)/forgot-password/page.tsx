@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import MotionSection from "@/components/shared/MotionSection";
+import SectionHeading from "@/components/shared/SectionHeading";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -34,26 +37,39 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="container-px flex min-h-[70vh] items-center justify-center py-10">
-      <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold">Forgot password</h1>
-        <p className="mt-2 text-sm text-zinc-600">
-          Enter your email and we will send a recovery link.
-        </p>
+    <div className="container-px shopee-shell py-8 md:py-12">
+      <MotionSection className="mx-auto max-w-lg rounded-sm bg-white p-5 shadow-sm md:p-6">
+        <SectionHeading
+          title="Forgot Password"
+          subtitle="Recover account access using your registered email"
+          action={<span className="shopee-pill">Recovery</span>}
+        />
+
         <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <Input placeholder="Email" type="email" {...register("email")} />
+            <Input
+              placeholder="Email"
+              type="email"
+              className="h-11 rounded-sm"
+              {...register("email")}
+            />
             {errors.email ? (
               <p className="mt-1 text-xs text-red-600">
                 {errors.email.message}
               </p>
             ) : null}
           </div>
-          <Button className="w-full" disabled={loading} type="submit">
-            {loading ? "Sending..." : "Send Reset Link"}
-          </Button>
+          <motion.div whileTap={{ scale: 0.98 }}>
+            <Button
+              className="h-11 w-full rounded-sm bg-[#ee4d2d] hover:bg-[#d94324]"
+              disabled={loading}
+              type="submit"
+            >
+              {loading ? "Sending..." : "Send Reset Link"}
+            </Button>
+          </motion.div>
         </form>
-      </div>
+      </MotionSection>
     </div>
   );
 }

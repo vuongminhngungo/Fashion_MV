@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Countdown({ endAt }: { endAt: string }) {
@@ -24,8 +25,16 @@ export default function Countdown({ endAt }: { endAt: string }) {
   }, [endAt]);
 
   return (
-    <span className="rounded bg-black px-2 py-1 text-xs text-white">
+    <motion.span
+      animate={{ scale: [1, 1.03, 1] }}
+      transition={{
+        duration: 1.2,
+        repeat: Number.POSITIVE_INFINITY,
+        ease: "easeInOut",
+      }}
+      className="rounded-sm bg-[#ee4d2d] px-3 py-1.5 text-xs font-bold tracking-wide text-white shadow-sm"
+    >
       {time}
-    </span>
+    </motion.span>
   );
 }
