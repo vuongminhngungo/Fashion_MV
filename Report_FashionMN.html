@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report - FashionMN</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 36px;
+        line-height: 1.6;
+        color: #1f2937;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #111827;
+        margin-bottom: 8px;
+      }
+      h1 {
+        font-size: 28px;
+        border-bottom: 2px solid #ee4d2d;
+        padding-bottom: 10px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-top: 28px;
+      }
+      h3 {
+        font-size: 16px;
+        margin-top: 18px;
+      }
+      .meta {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      .badge {
+        display: inline-block;
+        background: #fff1ed;
+        color: #ee4d2d;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      ul {
+        margin-top: 8px;
+      }
+      code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .section {
+        margin-top: 18px;
+      }
+      .ok {
+        color: #065f46;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BÁO CÁO DỰ ÁN: FashionMN</h1>
+    <div class="meta">
+      Phiên bản báo cáo: 1.0 · Mục tiêu: Mô tả sản phẩm, cách thực hiện, và kết
+      quả triển khai
+    </div>
+    <span class="badge">E-commerce Fashion Web</span>
+
+    <div class="section">
+      <h2>1) Mô tả sản phẩm</h2>
+      <p>
+        <strong>FashionMN</strong> là dự án website thương mại điện tử thời
+        trang hiện đại, xây dựng theo định hướng UI marketplace (Shopee-style),
+        tối ưu trải nghiệm mobile-first và tốc độ tương tác.
+      </p>
+      <h3>Chức năng chính</h3>
+      <ul>
+        <li>
+          Trang chủ với banner lớn, Flash Sale, danh mục nổi bật, sản phẩm nổi
+          bật, hàng mới.
+        </li>
+        <li>Trang sản phẩm có lọc/sắp xếp/phân trang theo URL.</li>
+        <li>
+          Trang chi tiết sản phẩm có chọn màu, size, số lượng, thêm giỏ hàng/yêu
+          thích.
+        </li>
+        <li>
+          Giỏ hàng, mã giảm giá mock (<code>FASHION10</code>), checkout đa bước.
+        </li>
+        <li>
+          Wishlist, Orders mock, Login/Register/Forgot Password (UI +
+          validation).
+        </li>
+        <li>
+          Search debounce 300ms, API REST nội bộ qua Next.js Route Handlers.
+        </li>
+      </ul>
+
+      <h3>Công nghệ</h3>
+      <ul>
+        <li>
+          <code>Next.js 15</code> (App Router) + <code>TypeScript strict</code>
+        </li>
+        <li><code>Tailwind CSS v4</code></li>
+        <li><code>Framer Motion</code> cho animation/micro-interaction</li>
+        <li><code>TanStack Query</code> cho fetch/cache</li>
+        <li><code>Zustand + persist</code> cho cart/wishlist</li>
+        <li><code>Prisma + PostgreSQL</code> cho dữ liệu sản phẩm</li>
+        <li><code>react-hook-form + zod</code> cho validation form</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>2) Cách thực hiện</h2>
+      <h3>2.1 Thiết kế kiến trúc & cấu trúc dự án</h3>
+      <ul>
+        <li>
+          Chuẩn hóa cấu trúc thư mục theo App Router và module hóa theo feature.
+        </li>
+        <li>
+          Tách rõ <code>app/</code>, <code>components/</code>,
+          <code>lib/</code>, <code>store/</code>, <code>hooks/</code>,
+          <code>prisma/</code>.
+        </li>
+      </ul>
+
+      <h3>2.2 Thiết kế dữ liệu</h3>
+      <ul>
+        <li>
+          Model <code>Product</code> gồm đầy đủ thông tin e-commerce: giá, giá
+          gốc, màu, size, tồn kho, rating, flags sale/featured/new.
+        </li>
+        <li>Seed 24 sản phẩm (8 clothing, 8 shoes, 8 bags).</li>
+        <li>
+          Tạo thêm file SQL mẫu import thủ công:
+          <code>prisma/sample-data.sql</code>.
+        </li>
+      </ul>
+
+      <h3>2.3 API và dữ liệu fallback</h3>
+      <ul>
+        <li>
+          API: <code>/api/products</code>, <code>/api/products/[slug]</code>,
+          <code>/api/search</code>.
+        </li>
+        <li>
+          Fallback mock data khi DB chưa sẵn sàng để đảm bảo build không bị
+          chặn.
+        </li>
+      </ul>
+
+      <h3>2.4 Nâng cấp UI/Animation chuẩn Shopee-style</h3>
+      <ul>
+        <li>
+          Header gradient marketplace + thanh search nổi bật + quick links.
+        </li>
+        <li>Card sản phẩm dày thông tin, CTA rõ ràng, animation hover mượt.</li>
+        <li>Page transition, section reveal animation, countdown animation.</li>
+        <li>
+          Đồng bộ visual toàn bộ trang: Home, Products, Detail, Cart, Checkout,
+          Auth, Wishlist, Orders, Search.
+        </li>
+      </ul>
+
+      <h3>2.5 CI thủ công và phát hành</h3>
+      <ul>
+        <li>
+          Kiểm tra chất lượng bằng <code>npm run typecheck</code> và
+          <code>npm run build</code>.
+        </li>
+        <li>Commit + push đầy đủ lên GitHub theo từng mốc hoàn thành.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3) Kết quả đạt được</h2>
+      <ul>
+        <li class="ok">
+          Đã hoàn thiện đầy đủ flow e-commerce từ khám phá sản phẩm đến đặt
+          hàng.
+        </li>
+        <li class="ok">
+          Đã nâng cấp giao diện và animation theo phong cách marketplace hiện
+          đại.
+        </li>
+        <li class="ok">
+          Đã kết nối/kiểm thử dữ liệu PostgreSQL thành công (24 sản phẩm).
+        </li>
+        <li class="ok">Đã có file SQL mẫu để import dữ liệu khi cần.</li>
+        <li class="ok">Đã push source code hoàn chỉnh lên GitHub.</li>
+      </ul>
+
+      <h3>Chỉ số kỹ thuật kiểm thử</h3>
+      <ul>
+        <li><code>typecheck</code>: Pass</li>
+        <li><code>production build</code>: Pass</li>
+        <li>Route build thành công cho toàn bộ trang chính</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>4) Hướng dẫn sử dụng nhanh</h2>
+      <ol>
+        <li>Cài dependencies: <code>npm install</code></li>
+        <li>Cấu hình <code>.env</code> với <code>DATABASE_URL</code></li>
+        <li>
+          Import dữ liệu bằng <code>prisma/sample-data.sql</code> hoặc seed
+          script
+        </li>
+        <li>Chạy dev: <code>npm run dev</code></li>
+        <li>Build production: <code>npm run build</code></li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>5) Kết luận</h2>
+      <p>
+        Dự án <strong>FashionMN</strong> đã đạt mục tiêu về mặt tính năng, tính
+        thẩm mỹ UI, animation, tính nhất quán dữ liệu và khả năng triển khai. Hệ
+        thống sẵn sàng cho giai đoạn mở rộng tiếp theo như thanh toán thực, quản
+        trị sản phẩm, và tối ưu SEO/analytics.
+      </p>
+    </div>
+  </body>
+</html>
