@@ -47,7 +47,7 @@ export default function Header() {
             href="/"
             className="shrink-0 text-2xl font-black tracking-tight md:text-3xl"
           >
-            Fashion_MV
+            FashionMN
           </Link>
 
           <div className="flex-1">

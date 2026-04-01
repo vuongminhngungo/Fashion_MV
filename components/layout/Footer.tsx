@@ -6,7 +6,7 @@ const footerGroups = [
     items: ["Help Center", "Payment", "Shipping", "Returns", "Contact Us"],
   },
   {
-    title: "About Fashion_MV",
+    title: "About FashionMN",
     items: ["About Us", "Careers", "Privacy Policy", "Terms", "Press"],
   },
   {
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-zinc-200 bg-zinc-50 py-4 text-center text-xs text-zinc-500">
-        © {new Date().getFullYear()} Fashion_MV. Shopee-inspired UI showcase for
+        © {new Date().getFullYear()} FashionMN. Shopee-inspired UI showcase for
         fashion commerce.
       </div>
     </footer>

@@ -44,7 +44,7 @@ export default function RegisterPage() {
       <MotionSection className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="hidden rounded-sm bg-white p-8 shadow-sm lg:block">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#ee4d2d]">
-            Join Fashion_MV
+            Join FashionMN
           </p>
           <h1 className="mt-3 text-4xl font-black leading-tight text-zinc-900">
             Create your account to unlock Shopee-style shopping perks

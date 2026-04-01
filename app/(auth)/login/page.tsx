@@ -42,7 +42,7 @@ export default function LoginPage() {
       <MotionSection className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="hidden rounded-sm shopee-gradient shopee-grid-bg p-8 text-white shadow-sm lg:block">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-            Fashion_MV Account
+            FashionMN Account
           </p>
           <h1 className="mt-3 text-4xl font-black leading-tight">
             Sign in and continue your Shopee-style shopping flow

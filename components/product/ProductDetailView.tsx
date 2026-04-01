@@ -225,7 +225,7 @@ export default function ProductDetailView({
 
             <div className="mt-6 grid gap-3 rounded-sm border border-zinc-100 bg-zinc-50 p-4 text-sm text-zinc-600 md:grid-cols-3">
               <p className="flex items-center gap-2">
-                <Store className="h-4 w-4 text-[#ee4d2d]" /> Official Fashion_MV
+                <Store className="h-4 w-4 text-[#ee4d2d]" /> Official FashionMN
                 Shop
               </p>
               <p className="flex items-center gap-2">
