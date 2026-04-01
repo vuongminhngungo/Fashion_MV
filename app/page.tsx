@@ -13,7 +13,7 @@ import SectionHeading from "@/components/shared/SectionHeading";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "fashion-mv | Home",
+    title: "FashionMN | Home",
     description: "Modern fashion e-commerce storefront",
   };
 }

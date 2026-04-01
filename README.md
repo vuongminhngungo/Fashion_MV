@@ -1,4 +1,4 @@
-# fashion-mv
+# FashionMN
 
 Modern fashion e-commerce storefront built with Next.js 15, TypeScript, Tailwind CSS v4, Prisma, Zustand, React Query, and mock auth flows.
 

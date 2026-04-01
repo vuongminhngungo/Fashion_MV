@@ -11,7 +11,7 @@ import PageTransition from "@/components/shared/PageTransition";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "fashion-mv | Modern Fashion Store",
+  title: "FashionMN | Modern Fashion Store",
   description: "A modern e-commerce fashion platform built with Next.js 15",
 };
 
