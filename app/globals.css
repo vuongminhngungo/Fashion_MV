@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+  --accent: #8b1a1a;
+  --muted: #f4f4f5;
+  --border: #e4e4e7;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.container-px {
+  @apply px-4 md:px-6 lg:px-8;
+}
+
+.section-gap {
+  @apply py-8 md:py-10 lg:py-12;
+}
